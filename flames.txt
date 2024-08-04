@@ -1,0 +1,75 @@
+import java.util.*;
+                                                                                        @copyrightHiddenblade
+                                                                                        source Code Owner: M.Mohamed Irfan
+public class FlamesGame {
+
+    // Function to find out the flames result
+    public static void flame(char[] a, char[] b) {
+        int sc = 0, rc;
+        String f = "flames";
+        char[] flames = f.toCharArray();          //OR USE ARRAY DIRECTLY
+        String q = new String(a);
+        String w = new String(b);
+
+        int n = a.length;
+        int m = b.length;
+        int tc = n + m;
+
+        // Mark matched characters with '0' and count the number of matches
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (a[i] == b[j] && a[i] != '0') {
+                    a[i] = b[j] = '0'; // mark the matched characters with '-'
+                    sc += 2;
+                    break;
+                }
+            }
+        }
+
+        // Calculate the remaining characters count
+        rc = tc - sc;
+        
+        int index = 0;
+
+        // Determine the FLAMES result based on remaining characters count
+        for (int i = 6; i > 1; i--) {
+            index = (index + rc - 1) % i;
+            for (int j = index; j < i - 1; j++) {
+                flames[j] = flames[j + 1];
+            }
+        }
+
+        // Print the result
+        char result = flames[0];
+        switch (result) {
+            case 'f':
+                System.out.println(q + " is FRIEND to " + w);
+                break;
+            case 'l':
+                System.out.println(q + " is in LOVE with " + w);
+                break;
+            case 'a':
+                System.out.println(q + " has more AFFECTION for " + w);
+                break;
+            case 'm':
+                System.out.println(q + " is going to MARRY " + w);
+                break;
+            case 'e':
+                System.out.println(q + " is ENEMY to " + w);
+                break;
+            case 's':
+                System.out.println(q + " and " + w + " are SISTERS/BROTHERS");
+                break;
+        }
+    }
+
+    // Driver code
+    public static void main(String[] args) {
+        String a = "AJAY";
+        String b = "PRIYA";
+        char[] charA = a.toCharArray();
+        char[] charB = b.toCharArray();
+
+        flame(charA, charB);
+    }
+}
